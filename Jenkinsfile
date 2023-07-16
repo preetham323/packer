@@ -17,15 +17,15 @@ pipeline {
                   steps {
                    script {
                     echo "initializing packer"
-                    sh "/usr/bin/packer version"
-                    sh  "/usr/bin/packer init aws-linux-ami-v1.pkr.hcl"
+                    sh "/usr/local/bin/packer version"
+                    sh  "/usr/local/bin/packer init aws-linux-ami-v1.pkr.hcl"
                       }
                 }
         }
           stage ('Packer validate') {
                    steps {
                     echo 'validating packer code'
-                    sh '/usr/bin/packer validate aws-linux-ami-v1.pkr.hcl'
+                    sh '/usr/local/bin/packer validate aws-linux-ami-v1.pkr.hcl'
                 }
              }
           stage ('packer build ami') {
@@ -37,7 +37,7 @@ pipeline {
                         secretKeyVariable: 'AWS_SECRET_ACCESS_KEY'
                                  ]]) {
                     echo 'building ami'
-                    sh '/usr/bin/packer build aws-linux-ami-v1.pkr.hcl'
+                    sh '/usr/local/bin/packer build aws-linux-ami-v1.pkr.hcl'
               }
         }
   }
